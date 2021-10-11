@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
 
-class UserWidget extends StatefulWidget {
-  const UserWidget({Key? key}) : super(key: key);
+class StartCardWidget extends StatefulWidget {
+  final int value;
+  final String title;
+
+  const StartCardWidget({Key? key, required this.value, required this.title})
+      : super(key: key);
 
   @override
-  _UserWidgetState createState() => _UserWidgetState();
+  _StartCardWidgetState createState() => _StartCardWidgetState(value: this.value);
 }
 
-class _UserWidgetState extends State<UserWidget> {
-  int _userCount = 2;
+class _StartCardWidgetState extends State<StartCardWidget> {
+  int value;
+
+  _StartCardWidgetState({required this.value});
 
   bool _checkDecreaseButtonEnabled(int value) => value > 1;
 
-  void _decreaseUser() {
+  void _decrease() {
     setState(() {
-      _userCount -= 1;
-      //TODO: Добавить связь с виджетом списка
-      //_usersInfo.removeAt(_userCount);
+      value -= 1;
     });
   }
 
-  void _increaseUser() {
+  void _increase() {
     setState(() {
-      _userCount += 1;
-      //TODO: Добавить связь с виджетом списка
-      //_usersInfo.add('Введите имя $_userCount игрока');
+      value += 1;
     });
   }
 
@@ -37,13 +39,13 @@ class _UserWidgetState extends State<UserWidget> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Игроки',
+              widget.title,
               style: TextStyle(
                 fontSize: 30,
               ),
             ),
             Text(
-              '$_userCount',
+              '$value',
               style: TextStyle(
                 fontSize: 150,
               ),
@@ -52,8 +54,8 @@ class _UserWidgetState extends State<UserWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: _checkDecreaseButtonEnabled(_userCount)
-                      ? () => _decreaseUser()
+                  onPressed: _checkDecreaseButtonEnabled(value)
+                      ? () => _decrease()
                       : null,
                   child: Text(
                     '-',
@@ -66,7 +68,7 @@ class _UserWidgetState extends State<UserWidget> {
                   width: 10,
                 ),
                 ElevatedButton(
-                  onPressed: () => _increaseUser(),
+                  onPressed: () => _increase(),
                   child: Text(
                     '+',
                     style: TextStyle(
