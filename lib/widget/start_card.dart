@@ -1,30 +1,41 @@
 import 'package:flutter/material.dart';
 
-class UserWidget extends StatefulWidget {
-  const UserWidget({Key? key}) : super(key: key);
+class StartCardWidget extends StatefulWidget {
+  final int value;
+  final String title;
+  final Function(int) onChangeValue;
+
+  const StartCardWidget({
+    Key? key,
+    required this.value,
+    required this.title,
+    required this.onChangeValue,
+  }) : super(key: key);
 
   @override
-  _UserWidgetState createState() => _UserWidgetState();
+  _StartCardWidgetState createState() => _StartCardWidgetState(
+      value: this.value, onSelectParam: this.onChangeValue);
 }
 
-class _UserWidgetState extends State<UserWidget> {
-  int _userCount = 2;
+class _StartCardWidgetState extends State<StartCardWidget> {
+  int value;
+  Function(int) onSelectParam;
+
+  _StartCardWidgetState({required this.value, required this.onSelectParam});
 
   bool _checkDecreaseButtonEnabled(int value) => value > 1;
 
-  void _decreaseUser() {
+  void _decrease() {
     setState(() {
-      _userCount -= 1;
-      //TODO: Добавить связь с виджетом списка
-      //_usersInfo.removeAt(_userCount);
+      value -= 1;
+      onSelectParam(value);
     });
   }
 
-  void _increaseUser() {
+  void _increase() {
     setState(() {
-      _userCount += 1;
-      //TODO: Добавить связь с виджетом списка
-      //_usersInfo.add('Введите имя $_userCount игрока');
+      value += 1;
+      onSelectParam(value);
     });
   }
 
@@ -37,13 +48,13 @@ class _UserWidgetState extends State<UserWidget> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Игроки',
+              widget.title,
               style: TextStyle(
                 fontSize: 30,
               ),
             ),
             Text(
-              '$_userCount',
+              '$value',
               style: TextStyle(
                 fontSize: 150,
               ),
@@ -52,8 +63,8 @@ class _UserWidgetState extends State<UserWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: _checkDecreaseButtonEnabled(_userCount)
-                      ? () => _decreaseUser()
+                  onPressed: _checkDecreaseButtonEnabled(value)
+                      ? () => _decrease()
                       : null,
                   child: Text(
                     '-',
@@ -66,7 +77,7 @@ class _UserWidgetState extends State<UserWidget> {
                   width: 10,
                 ),
                 ElevatedButton(
-                  onPressed: () => _increaseUser(),
+                  onPressed: () => _increase(),
                   child: Text(
                     '+',
                     style: TextStyle(
