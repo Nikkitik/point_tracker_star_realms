@@ -24,7 +24,7 @@ class _MyPointerState extends State<MyPointer> {
     List<String> list = <String>[];
 
     for (int i = 0; i < _userCount; i++) {
-      _addNewUser(i + 1);
+      list.add('Введите имя ${(i+1).toString()} игрока');
     }
 
     return list;
