@@ -3,30 +3,39 @@ import 'package:flutter/material.dart';
 class StartCardWidget extends StatefulWidget {
   final int value;
   final String title;
+  final Function(int) onChangeValue;
 
-  const StartCardWidget({Key? key, required this.value, required this.title})
-      : super(key: key);
+  const StartCardWidget({
+    Key? key,
+    required this.value,
+    required this.title,
+    required this.onChangeValue,
+  }) : super(key: key);
 
   @override
-  _StartCardWidgetState createState() => _StartCardWidgetState(value: this.value);
+  _StartCardWidgetState createState() => _StartCardWidgetState(
+      value: this.value, onSelectParam: this.onChangeValue);
 }
 
 class _StartCardWidgetState extends State<StartCardWidget> {
   int value;
+  Function(int) onSelectParam;
 
-  _StartCardWidgetState({required this.value});
+  _StartCardWidgetState({required this.value, required this.onSelectParam});
 
   bool _checkDecreaseButtonEnabled(int value) => value > 1;
 
   void _decrease() {
     setState(() {
       value -= 1;
+      onSelectParam(value);
     });
   }
 
   void _increase() {
     setState(() {
       value += 1;
+      onSelectParam(value);
     });
   }
 

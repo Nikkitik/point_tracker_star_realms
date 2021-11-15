@@ -11,19 +11,27 @@ class MyPointer extends StatefulWidget {
 }
 
 class _MyPointerState extends State<MyPointer> {
-  late List<String> _usersInfo = _getStartListUserInfo();
+  //Блок 'Жизни'
+  int _healthCount = 50;
+  String _healthTitle = 'Жизни';
 
+  //Блок 'Игроки'
   int _userCount = 2;
+  String _userTitle = 'Игроки';
+  late List<String> _usersInfo = _getStartListUserInfo();
 
   List<String> _getStartListUserInfo() {
     List<String> list = <String>[];
 
     for (int i = 0; i < _userCount; i++) {
-      list.add('Введите имя ${(i + 1).toString()} игрока');
+      list.add('Введите имя ${(i+1).toString()} игрока');
     }
 
     return list;
   }
+
+  void _addNewUser(int userNumber) =>
+      _usersInfo.add('Введите имя ${userNumber.toString()} игрока');
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +65,29 @@ class _MyPointerState extends State<MyPointer> {
           ),
           Row(children: [
             Expanded(
-              child: StartCardWidget(value: 50, title: 'Жизни'),
+              child: StartCardWidget(
+                value: _healthCount,
+                title: _healthTitle,
+                onChangeValue: (int health) {
+                  _healthCount = health;
+                },
+              ),
             ),
             Expanded(
-              child: StartCardWidget(value: 2, title: 'Игроки'),
+              child: StartCardWidget(
+                value: _userCount,
+                title: _userTitle,
+                onChangeValue: (int user) {
+                  setState(() {
+                    if (_userCount > user)
+                      _usersInfo.removeAt(user);
+                    else
+                      _addNewUser(user);
+
+                    _userCount = user;
+                  });
+                },
+              ),
             ),
           ]),
           Padding(
