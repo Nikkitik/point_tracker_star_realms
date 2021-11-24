@@ -1,41 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:point_tracker_star_realms/util/counter_event.dart';
+import 'package:provider/src/provider.dart';
 
 class StartCardWidget extends StatefulWidget {
   final int value;
   final String title;
-  final Function(int) onChangeValue;
+  final bool needProvider;
 
   const StartCardWidget({
     Key? key,
     required this.value,
     required this.title,
-    required this.onChangeValue,
+    required this.needProvider,
   }) : super(key: key);
 
   @override
-  _StartCardWidgetState createState() => _StartCardWidgetState(
-      value: this.value, onSelectParam: this.onChangeValue);
+  _StartCardWidgetState createState() =>
+      _StartCardWidgetState(value: this.value, needProvider: this.needProvider);
 }
 
 class _StartCardWidgetState extends State<StartCardWidget> {
   int value;
-  Function(int) onSelectParam;
+  bool needProvider;
 
-  _StartCardWidgetState({required this.value, required this.onSelectParam});
+  _StartCardWidgetState({required this.value, required this.needProvider});
 
   bool _checkDecreaseButtonEnabled(int value) => value > 1;
 
   void _decrease() {
+    if (needProvider) {
+      context.read<CounterBloc>().add(Decrement());
+    }
+
     setState(() {
       value -= 1;
-      onSelectParam(value);
     });
   }
 
   void _increase() {
+    if (needProvider) {
+      context.read<CounterBloc>().add(Increment());
+    }
+
     setState(() {
       value += 1;
-      onSelectParam(value);
     });
   }
 
