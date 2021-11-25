@@ -29,7 +29,7 @@ class _StartCardWidgetState extends State<StartCardWidget> {
 
   void _decrease() {
     if (needProvider) {
-      context.read<CounterBloc>().add(Decrement());
+      context.read<ListUserCubit>().removeUserInfo();
     }
 
     setState(() {
@@ -38,13 +38,13 @@ class _StartCardWidgetState extends State<StartCardWidget> {
   }
 
   void _increase() {
-    if (needProvider) {
-      context.read<CounterBloc>().add(Increment());
-    }
-
     setState(() {
       value += 1;
     });
+
+    if (needProvider) {
+      context.read<ListUserCubit>().addUserInfo(value);
+    }
   }
 
   @override

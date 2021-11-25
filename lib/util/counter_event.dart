@@ -1,21 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-/// Event being processed by [CounterBloc].
-abstract class CounterEvent {}
+class ListUserCubit extends Cubit<List<String>> {
+  ListUserCubit() : super(_defaultUserList);
 
-/// Notifies bloc to increment state.
-class Increment extends CounterEvent {}
+  static final List<String> _defaultUserList = <String>[
+    'Введите имя 1 игрока',
+    'Введите имя 2 игрока'
+  ];
 
-/// Notifies bloc to decrement state.
-class Decrement extends CounterEvent {}
+  void addUserInfo(int count) {
+    emit(List.from(state)..add('Введите имя $count игрока'));
+  }
 
-/// {@template counter_bloc}
-/// A simple [Bloc] that manages an `int` as its state.
-/// {@endtemplate}
-class CounterBloc extends Bloc<CounterEvent, int> {
-  /// {@macro counter_bloc}
-  CounterBloc() : super(2) {
-    on<Increment>((event, emit) => emit(state + 1));
-    on<Decrement>((event, emit) => emit(state - 1));
+  void removeUserInfo() {
+    emit(List.from(state)..removeLast());
   }
 }
