@@ -31,7 +31,7 @@ class _MyPointerState extends State<MyPointer> {
           title: Text('Star Realms Pointer'),
         ),
         body: BlocProvider(
-          create: (_) => CounterBloc(),
+          create: (_) => ListUserCubit(),
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             Expanded(
               child: UserListWidget(),
