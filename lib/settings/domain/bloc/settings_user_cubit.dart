@@ -4,9 +4,8 @@ import 'package:point_tracker_star_realms/settings/domain/models/settings_user_i
 
 class SettingsUserCubit extends Cubit<SettingsUserInfo> {
   final SettingsListCubit listCubit;
-  final int userCount;
 
-  SettingsUserCubit({required this.userCount, required this.listCubit})
+  SettingsUserCubit({required int userCount, required this.listCubit})
       : super(SettingsUserInfo(count: 2));
 
   void decreaseUserInfo() {
@@ -20,6 +19,6 @@ class SettingsUserCubit extends Cubit<SettingsUserInfo> {
     int newCount = state.count + 1;
     emit(SettingsUserInfo(count: newCount));
 
-    listCubit.addNewUserInfo();
+    listCubit.addNewUserInfo(newCount);
   }
 }

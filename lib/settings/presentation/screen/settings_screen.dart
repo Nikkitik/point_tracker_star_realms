@@ -19,7 +19,7 @@ class SettingsScreen extends StatelessWidget {
       body: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => SettingsListCubit(),
+            create: (_) => SettingsListCubit(),
           ),
           BlocProvider(
             create: (context) => SettingsUserCubit(
@@ -28,7 +28,10 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
           BlocProvider(
-            create: (_) => SettingsHealthCubit(50),
+            create: (context) => SettingsHealthCubit(
+              healthCount: 50,
+              listCubit: context.read<SettingsListCubit>(),
+            ),
           ),
         ],
         child: Column(
