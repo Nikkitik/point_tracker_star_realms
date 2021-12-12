@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:point_tracker_star_realms/settings/presentation/screen/settings_screen.dart';
 
-void main() => runApp(MyPointer());
+import 'di.dart';
+
+void main() async {
+  //Инициализация зависимостей
+  await configureDependencies();
+
+  runApp(MyPointer());
+}
 
 class MyPointer extends StatefulWidget {
   const MyPointer({Key? key}) : super(key: key);
