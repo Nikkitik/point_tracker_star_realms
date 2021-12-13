@@ -20,9 +20,6 @@ class SettingsRepositoryImpl implements SettingsRepository {
       );
     }
 
-    return SettingsState(
-      health: this.health.toString(),
-      items: this.items,
-    );
+    return SettingsState(items: this.items);
   }
 }
