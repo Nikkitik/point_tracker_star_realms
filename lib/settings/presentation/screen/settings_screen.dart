@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:point_tracker_star_realms/di.dart';
 import 'package:point_tracker_star_realms/settings/domain/bloc/settings_cubit.dart';
+import 'package:point_tracker_star_realms/settings/domain/bloc/settings_state.dart';
 import 'package:point_tracker_star_realms/settings/domain/interfaces/settings_repository.dart';
-import 'package:point_tracker_star_realms/settings/presentation/widget/settings_health_card.dart';
+import 'package:point_tracker_star_realms/settings/domain/models/SettingsInfo.dart';
+import 'package:point_tracker_star_realms/settings/presentation/widget/settings_card.dart';
 import 'package:point_tracker_star_realms/settings/presentation/widget/settings_list.dart';
-import 'package:point_tracker_star_realms/settings/presentation/widget/settings_user_card.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -22,17 +23,32 @@ class SettingsScreen extends StatelessWidget {
             create: (_) => SettingsCubit(locator.get<SettingsRepository>()),
           ),
         ],
-        child: Column(
-          children: [
-            Expanded(child: SettingsList()),
-            Row(
-              children: [
-                Expanded(child: SettingsHealthCard()),
-                Expanded(child: SettingsUserCard()),
-              ],
-            ),
-          ],
-        ),
+        child: BlocBuilder<SettingsCubit, SettingsState>(
+            builder: (context, state) {
+          return Column(
+            children: [
+              Expanded(child: SettingsList()),
+              Row(
+                children: [
+                  Expanded(
+                    child: SettingsCard(
+                      title: 'Жизни',
+                      defaultCount: state.health,
+                      settingsInfo: SettingsHealthInfo(),
+                    ),
+                  ),
+                  Expanded(
+                    child: SettingsCard(
+                      title: 'Игроки',
+                      defaultCount: state.userCount,
+                      settingsInfo: SettingsUserInfo(),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
