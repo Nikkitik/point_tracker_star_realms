@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:point_tracker_star_realms/settings/domain/bloc/settings_health_cubit.dart';
-import 'package:point_tracker_star_realms/settings/domain/models/settings_health_info.dart';
+import 'package:point_tracker_star_realms/settings/domain/bloc/settings_cubit.dart';
+import 'package:point_tracker_star_realms/settings/domain/bloc/settings_state.dart';
 
 class SettingsHealthCard extends StatelessWidget {
   SettingsHealthCard({Key? key}) : super(key: key);
 
+  bool enabledDecreaseButton(int count) => count > 1;
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsHealthCubit, SettingsHealthInfo>(
-      builder: (context, healthInfo) {
+    return BlocBuilder<SettingsCubit, SettingsState>(
+      builder: (context, state) {
         return Card(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -17,13 +19,13 @@ class SettingsHealthCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  healthInfo.title,
+                  'Жизни',
                   style: TextStyle(
                     fontSize: 30,
                   ),
                 ),
                 Text(
-                  healthInfo.count.toString(),
+                  state.health.toString(),
                   style: TextStyle(
                     fontSize: 150,
                   ),
@@ -32,10 +34,10 @@ class SettingsHealthCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: healthInfo.enabledDecreaseButton()
+                      onPressed: enabledDecreaseButton(state.health)
                           ? () => context
-                              .read<SettingsHealthCubit>()
-                              .decreaseHealthInfo()
+                              .read<SettingsCubit>()
+                              .decreaseHealthCount()
                           : null,
                       child: Text(
                         '-',
@@ -49,8 +51,8 @@ class SettingsHealthCard extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () => context
-                          .read<SettingsHealthCubit>()
-                          .increaseHealthInfo(),
+                          .read<SettingsCubit>()
+                          .increaseHealthCount(),
                       child: Text(
                         '+',
                         style: TextStyle(

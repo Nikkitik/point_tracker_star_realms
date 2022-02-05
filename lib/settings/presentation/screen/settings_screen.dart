@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:point_tracker_star_realms/di.dart';
 import 'package:point_tracker_star_realms/settings/domain/bloc/settings_cubit.dart';
-import 'package:point_tracker_star_realms/settings/domain/bloc/settings_health_cubit.dart';
 import 'package:point_tracker_star_realms/settings/domain/interfaces/settings_repository.dart';
 import 'package:point_tracker_star_realms/settings/presentation/widget/settings_health_card.dart';
 import 'package:point_tracker_star_realms/settings/presentation/widget/settings_list.dart';
@@ -21,12 +20,6 @@ class SettingsScreen extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (_) => SettingsCubit(locator.get<SettingsRepository>()),
-          ),
-          BlocProvider(
-            create: (context) => SettingsHealthCubit(
-              healthCount: 50,
-              settingsCubit: context.read<SettingsCubit>(),
-            ),
           ),
         ],
         child: Column(

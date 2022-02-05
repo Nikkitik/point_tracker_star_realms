@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:point_tracker_star_realms/settings/domain/bloc/settings_cubit.dart';
-import 'package:point_tracker_star_realms/settings/domain/models/settings_state.dart';
+import 'package:point_tracker_star_realms/settings/domain/bloc/settings_state.dart';
 
 class SettingsList extends StatelessWidget {
   const SettingsList({Key? key}) : super(key: key);
@@ -12,7 +12,7 @@ class SettingsList extends StatelessWidget {
       builder: (context, state) {
         return ListView.builder(
           padding: const EdgeInsets.all(8),
-          itemCount: state.items.length,
+          itemCount: state.elements.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
               height: 50,
@@ -22,7 +22,7 @@ class SettingsList extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        state.items[index].name,
+                        state.elements[index].name,
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
@@ -30,7 +30,7 @@ class SettingsList extends StatelessWidget {
                       width: 10,
                     ),
                     Text(
-                      state.items[index].health,
+                      state.elements[index].health.toString(),
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     )

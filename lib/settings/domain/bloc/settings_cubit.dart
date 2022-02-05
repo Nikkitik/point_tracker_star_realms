@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:point_tracker_star_realms/settings/domain/bloc/settings_state.dart';
 import 'package:point_tracker_star_realms/settings/domain/interfaces/settings_repository.dart';
-import 'package:point_tracker_star_realms/settings/domain/models/settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
   final SettingsRepository settingsRepository;
@@ -8,15 +8,19 @@ class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit(this.settingsRepository)
       : super(settingsRepository.getStartState());
 
-  void decrease() {
+  void decreaseUserCount() {
     emit(state.removeElement());
   }
 
-  void increase() {
+  void increaseUserCount() {
     emit(state.addNewElement());
   }
 
-  void changeHealthInfo(String newHealth) {
-    emit(state.setHealthToElementInfo(newHealth));
+  void decreaseHealthCount() {
+    emit(state.decreaseHealth());
+  }
+
+  void increaseHealthCount() {
+    emit(state.increaseHealth());
   }
 }

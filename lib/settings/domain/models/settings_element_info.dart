@@ -9,6 +9,6 @@ class SettingsElementInfo {
   final String name;
   final String health;
 
-  SettingsElementInfo copyWith(String newHealth) =>
+  SettingsElementInfo copyWithNewHealth(String newHealth) =>
       SettingsElementInfo(id: this.id, name: this.name, health: newHealth);
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:point_tracker_star_realms/settings/domain/bloc/settings_cubit.dart';
-import 'package:point_tracker_star_realms/settings/domain/models/settings_state.dart';
+import 'package:point_tracker_star_realms/settings/domain/bloc/settings_state.dart';
 
 class SettingsUserCard extends StatelessWidget {
   SettingsUserCard({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class SettingsUserCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  state.items.length.toString(),
+                  state.userCount.toString(),
                   style: TextStyle(
                     fontSize: 150,
                   ),
@@ -34,8 +34,8 @@ class SettingsUserCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: enabledDecreaseButton(state.items.length)
-                          ? () => context.read<SettingsCubit>().decrease()
+                      onPressed: enabledDecreaseButton(state.userCount)
+                          ? () => context.read<SettingsCubit>().decreaseUserCount()
                           : null,
                       child: Text(
                         '-',
@@ -48,7 +48,7 @@ class SettingsUserCard extends StatelessWidget {
                       width: 10,
                     ),
                     ElevatedButton(
-                      onPressed: () => context.read<SettingsCubit>().increase(),
+                      onPressed: () => context.read<SettingsCubit>().increaseUserCount(),
                       child: Text(
                         '+',
                         style: TextStyle(
