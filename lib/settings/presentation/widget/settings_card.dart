@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:point_tracker_star_realms/settings/domain/bloc/settings_cubit.dart';
-import 'package:point_tracker_star_realms/settings/domain/models/SettingsInfo.dart';
+import 'package:point_tracker_star_realms/settings/domain/models/settings_info.dart';
 
 class SettingsCard extends StatefulWidget {
   SettingsCard({

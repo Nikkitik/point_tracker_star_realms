@@ -4,7 +4,7 @@ import 'package:point_tracker_star_realms/di.dart';
 import 'package:point_tracker_star_realms/settings/domain/bloc/settings_cubit.dart';
 import 'package:point_tracker_star_realms/settings/domain/bloc/settings_state.dart';
 import 'package:point_tracker_star_realms/settings/domain/interfaces/settings_repository.dart';
-import 'package:point_tracker_star_realms/settings/domain/models/SettingsInfo.dart';
+import 'package:point_tracker_star_realms/settings/domain/models/settings_info.dart';
 import 'package:point_tracker_star_realms/settings/presentation/widget/settings_card.dart';
 import 'package:point_tracker_star_realms/settings/presentation/widget/settings_list.dart';
 
