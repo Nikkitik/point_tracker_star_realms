@@ -15,6 +15,8 @@ class SettingsCard extends StatelessWidget {
   final int count;
   final SettingsInfo settingsInfo;
 
+  bool _enabledButtonDecrease(int count) => count > 1;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -39,9 +41,11 @@ class SettingsCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () {
-                    context.read<SettingsCubit>().decrease(settingsInfo);
-                  },
+                  onPressed: _enabledButtonDecrease(count)
+                      ? () {
+                          context.read<SettingsCubit>().decrease(settingsInfo);
+                        }
+                      : null,
                   child: Text(
                     '-',
                     style: TextStyle(
