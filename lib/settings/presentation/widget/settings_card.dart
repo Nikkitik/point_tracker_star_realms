@@ -1,42 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:point_tracker_star_realms/settings/domain/bloc/settings_cubit.dart';
 import 'package:point_tracker_star_realms/settings/domain/models/settings_info.dart';
+import 'package:provider/src/provider.dart';
 
-class SettingsCard extends StatefulWidget {
+class SettingsCard extends StatelessWidget {
   SettingsCard({
     Key? key,
     required this.title,
-    required this.defaultCount,
+    required this.count,
     required this.settingsInfo,
   }) : super(key: key);
 
   final String title;
-  final int defaultCount;
+  final int count;
   final SettingsInfo settingsInfo;
-
-  @override
-  State<SettingsCard> createState() => _SettingsCardState(count: defaultCount);
-}
-
-class _SettingsCardState extends State<SettingsCard> {
-  _SettingsCardState({required this.count});
-
-  int count;
-
-  bool _enabledDecreaseButton() => count > 1;
-
-  void _decrease() {
-    setState(() {
-      count -= 1;
-    });
-  }
-
-  void _increase() {
-    setState(() {
-      count += 1;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +24,7 @@ class _SettingsCardState extends State<SettingsCard> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              widget.title,
+              title,
               style: TextStyle(
                 fontSize: 30,
               ),
@@ -62,15 +39,9 @@ class _SettingsCardState extends State<SettingsCard> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: _enabledDecreaseButton()
-                      ? () {
-                          _decrease();
-
-                          context
-                              .read<SettingsCubit>()
-                              .decrease(widget.settingsInfo);
-                        }
-                      : null,
+                  onPressed: () {
+                    context.read<SettingsCubit>().decrease(settingsInfo);
+                  },
                   child: Text(
                     '-',
                     style: TextStyle(
@@ -83,9 +54,7 @@ class _SettingsCardState extends State<SettingsCard> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    _increase();
-
-                    context.read<SettingsCubit>().increase(widget.settingsInfo);
+                    context.read<SettingsCubit>().increase(settingsInfo);
                   },
                   child: Text(
                     '+',

@@ -27,20 +27,22 @@ class SettingsScreen extends StatelessWidget {
             builder: (context, state) {
           return Column(
             children: [
-              Expanded(child: SettingsList()),
+              Expanded(
+                child: SettingsList(elementsInfo: state.elements),
+              ),
               Row(
                 children: [
                   Expanded(
                     child: SettingsCard(
                       title: 'Жизни',
-                      defaultCount: state.health,
+                      count: state.health,
                       settingsInfo: SettingsHealthInfo(),
                     ),
                   ),
                   Expanded(
                     child: SettingsCard(
                       title: 'Игроки',
-                      defaultCount: state.userCount,
+                      count: state.userCount,
                       settingsInfo: SettingsUserInfo(),
                     ),
                   ),
